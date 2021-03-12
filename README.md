@@ -8,5 +8,5 @@ This is a test project to get started with GitHub
 * item 2
 * item 3
 
-![](sentosa.jpff)
+![](sentosa.jfif)
 
