@@ -1,35 +1,35 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+ release:
+   types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm test
+ build:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v1
+     - uses: actions/setup-node@v1
+       with:
+         node-version: 12
+     - run: npm ci
+     - run: npm test
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@zxuan91'
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: 'Sending SMS Notification'
+ publish-gpr:
+   needs: build
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v1
+     - uses: actions/setup-node@v1
+       with:
+         node-version: 12
+         registry-url: https://npm.pkg.github.com/
+         scope: '@zxuan91'
+     - run: npm ci
+     - run: npm publish
+       env:
+         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+     - name: 'Sending SMS Notification'
        uses: twilio-labs/actions-sms@v1
        with:
          fromPhoneNumber: ${{ secrets.TWILIO_PHONE_NUMBER }}
